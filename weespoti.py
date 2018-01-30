@@ -70,7 +70,7 @@ def ws_command(data, buffer, args):
       dbc = DBusClient()
       song = dbc.get_song()
       artist, title = dbc.get_song()
-      string = u"%s♫ %sNow playing:%s %s%s - %s%s %s♫" % (weechat.color("red"), weechat.color("lightblue"), weechat.color("yellow"), artist, weechat.color("lightblue"), weechat.color("lightgreen"), title, weechat.color("red"))
+      string = u"%s♫ %sNow playing:%s %s%s - %s%s %s♫" % ("\x034", "\x0312", "\x038", artist, "\x0312", "\x039", title, "\x034")
       weechat.command(buffer, string.encode("UTF-8"))
    except Exception as err:
       weechat.prnt("", "%sException: %s" % (weechat.prefix("error"), err))
