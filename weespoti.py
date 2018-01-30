@@ -67,7 +67,6 @@ class DBusClient(object):
 
 def ws_command(data, buffer, args):
    try:
-      dbc = DBusClient()
       song = dbc.get_song()
       artist, title = dbc.get_song()
       string = u"%s♫ %sNow playing:%s %s%s - %s%s %s♫" % ("\x034", "\x0312", "\x038", artist, "\x0312", "\x039", title, "\x034")
@@ -79,6 +78,8 @@ def ws_command(data, buffer, args):
 
 
 def main():
+   global dbc
+   dbc = DBusClient()
    weechat.register(name, author, version, license, desc, "", "") 
    weechat.hook_command(command, desc, "", "", "", "ws_command", "")
    weechat.prnt("", "%s | %s" % (name, author))
