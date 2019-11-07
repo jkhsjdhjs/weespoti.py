@@ -7,10 +7,10 @@ import weechat
 
 name    = "weespotipy"
 author  = "Lorenz Wellmer"
-version = "1.0"
+version = "1.1"
 desc    = "Weechat Spotify"
 license = "GPL3"
-command = "wspy"
+command = "music"
 
 class DBusClient(object):
    def __init__(self, bus=None):
@@ -67,9 +67,8 @@ class DBusClient(object):
 
 def ws_command(data, buffer, args):
    try:
-      song = dbc.get_song()
       artist, title = dbc.get_song()
-      string = u"%s♫ %sNow playing:%s %s%s - %s%s %s♫" % ("\x034", "\x0312", "\x038", artist, "\x0312", "\x039", title, "\x034")
+      string = u"%s♫ %sNow playing:%s %s%s - %s%s %s♫" % ("\x034", "\x0312", "\x038\x02\x02", artist, "\x0312", "\x039\x02\x02", title, "\x034")
       weechat.command(buffer, string.encode("UTF-8"))
    except Exception as err:
       weechat.prnt("", "%sException: %s" % (weechat.prefix("error"), err))
