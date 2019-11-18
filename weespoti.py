@@ -41,13 +41,13 @@ class DBusClient(object):
 
    def get_property(self, key):
       prop = None
-      
+
       try:
          prop = self.properties.Get(self.player_path, key)
       except dbus.exceptions.DBusException as e:
          self.connect_to_spotify_dbus(None)
          weechat.prnt("", "%failed to get DBus property" % weechat.prefix("error"))
-      
+
       return prop
 
 
@@ -69,7 +69,7 @@ def ws_command(data, buffer, args):
    try:
       artist, title = dbc.get_song()
       string = u"%s♫ %sNow playing:%s %s%s - %s%s %s♫" % ("\x034", "\x0312", "\x038\x02\x02", artist, "\x0312", "\x039\x02\x02", title, "\x034")
-      weechat.command(buffer, string.encode("UTF-8"))
+      weechat.command(buffer, string)
    except Exception as err:
       weechat.prnt("", "%sException: %s" % (weechat.prefix("error"), err))
    finally:
@@ -79,7 +79,7 @@ def ws_command(data, buffer, args):
 def main():
    global dbc
    dbc = DBusClient()
-   weechat.register(name, author, version, license, desc, "", "") 
+   weechat.register(name, author, version, license, desc, "", "")
    weechat.hook_command(command, desc, "", "", "", "ws_command", "")
    weechat.prnt("", "%s | %s" % (name, author))
 
